@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER 15
+#define BUFFER 10
 
 char	*get_next_line(int fd)
 {
@@ -21,10 +21,10 @@ char	*get_next_line(int fd)
 	char	buffer[BUFFER];
 	ssize_t	i;
 
-	i = 0;
 	while ((read_bytes = read(fd, buffer, BUFFER)) > 0)
 	{
-		while (i < read_bytes && buffer[i] != '\n')
+		i = 0;
+		while (buffer[i] != '\n')
 			i++;
 		line_node = malloc(sizeof(t_list));
 		if (!line_node)
