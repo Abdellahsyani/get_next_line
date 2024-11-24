@@ -31,9 +31,9 @@ char *get(int fd)
                 		if (!temp)
                 		{
                     			free(dup);
-                    			return NULL; // Realloc failed
+                    			return NULL; 
                 		}
-                	dup = temp;
+                		dup = temp;
 			}
 			dup[i] = buffer[j];
 			i++;
@@ -50,8 +50,8 @@ int main() {
     int fd;
     char *line;
 
-    // Open the file to test
-    fd = open("text.txt", O_RDONLY); // Make sure you have a 
+
+    fd = open("text.txt", O_RDONLY); 
     if (fd == -1) {
         perror("Failed to open file");
         return 1;
@@ -62,4 +62,3 @@ int main() {
     close(fd);
     return 0;
 }
-
