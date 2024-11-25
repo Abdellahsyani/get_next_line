@@ -15,49 +15,46 @@ char *get(int fd)
 	dup = malloc(sizeof(char) * (cpacity + 1));
 	if (!dup)
 		return (NULL);
-	while (1)
+	readbytes = read(fd, buffer, BUFFER);
+	if (readbytes <= 0)
+		return (NULL);
+	int j = 0;
+	while (j < readbytes)
 	{
-		readbytes = read(fd, buffer, BUFFER);
-		if (readbytes <= 0)
-			break;
-		int j = 0;
-		while (j < readbytes)
+		if (i >= cpacity)
 		{
-			if (i >= cpacity)
+			cpacity *= 2;
+			char *temp = realloc(dup, cpacity + 1);
+			if (!temp)
 			{
-				cpacity *= 2;
-                		char *temp = realloc(dup, cpacity + 1);
-                		if (!temp)
-                		{
-                    			free(dup);
-                    			return NULL; 
-                		}
-                		dup = temp;
+				free(dup);
+				return NULL; 
 			}
-			dup[i] = buffer[j];
-			i++;
-			j++;
+			dup = temp;
 		}
-		if (buffer[j - 1] == '\n')
-			break;
+		dup[i] = buffer[j];
+		i++;
+		j++;
 	}
+	if (buffer[j - 1] == '\n')
+		return (NULL);
 	dup[i] = '\0';
 	return (dup);
 }
 
 int main() {
-    int fd;
-    char *line;
+	int fd;
+	char *line;
 
 
-    fd = open("text.txt", O_RDONLY); 
-    if (fd == -1) {
-        perror("Failed to open file");
-        return 1;
-    }
+	fd = open("text.txt", O_RDONLY); 
+	if (fd == -1) {
+		perror("Failed to open file");
+		return 1;
+	}
 	line = get(fd);
 	printf("%s", line);
 
-    close(fd);
-    return 0;
+	close(fd);
+	return 0;
 }
