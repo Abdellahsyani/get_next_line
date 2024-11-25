@@ -1,7 +1,7 @@
 #include "get_next_line.h"
 #include <stdio.h>
-#include <fcntl.h> // for open()
-#include <unistd.h> // for close()
+#include <fcntl.h> 
+#include <unistd.h> 
 #define BUFFER 10
 
 char *get(int fd)
@@ -20,7 +20,6 @@ char *get(int fd)
 		readbytes = read(fd, buffer, BUFFER);
 		if (readbytes <= 0)
 			break;
-
 		int j = 0;
 		while (j < readbytes)
 		{
