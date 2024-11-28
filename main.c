@@ -14,7 +14,7 @@ int main() {
 		return 1;
 	}
 	
-	 while ((line = ft_get_next_line(fd)) != NULL) {
+	 while ((line = ft_get_next_line(fj)) != NULL) {
         	printf("%s", line);
         	free(line);
 	}
