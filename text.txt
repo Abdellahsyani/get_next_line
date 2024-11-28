@@ -1,4 +1,2 @@
-
-
-
-NULL
+hello world
+The world is great
