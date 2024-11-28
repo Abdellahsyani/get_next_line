@@ -48,7 +48,7 @@ char	*ft_strjoin(char *s1, char *s2)
  * return: the extract line
  */
 
-char	*extract_line(char **static_str) {
+char	*ft_extract_line(char **static_str) {
 	char	*newline_pos;
 	char	*line;
 	char	*temp;
@@ -86,7 +86,7 @@ char	*extract_line(char **static_str) {
  *
  * return: on success- the line - on failure NULL
  */
-char	*get_next_line(int fd)
+char	*ft_get_next_line(int fd)
 {
 	static char	*static_str;
 	char		buffer[BUFFER_SIZE];
@@ -106,7 +106,7 @@ char	*get_next_line(int fd)
 			return NULL;
 	}
 	if (static_str && *static_str)
-		return extract_line(&static_str);
+		return ft_extract_line(&static_str);
 	free(static_str);
 	static_str = NULL;
 	return NULL;
