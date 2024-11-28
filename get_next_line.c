@@ -48,7 +48,8 @@ char	*ft_strjoin(char *s1, char *s2)
  * return: the extract line
  */
 
-char	*ft_extract_line(char **static_str) {
+char	*ft_extract_line(char **static_str)
+{
 	char	*newline_pos;
 	char	*line;
 	char	*temp;
@@ -60,25 +61,27 @@ char	*ft_extract_line(char **static_str) {
 		line_len = newline_pos - *static_str + 1;
 		line = malloc(line_len + 1);
 		if (!line)
-			return NULL;
+			return (NULL);
 		ft_strncpy(line, *static_str, line_len);
 		line[line_len] = '\0';
 		temp = ft_strdup(newline_pos + 1);
 		if (!temp)
 		{
 			free(line);
-			return NULL;
+			return (NULL);
 		}
 		free(*static_str);
 		*static_str = temp;
-	} else {
+	}
+	else
+	{
 		line = ft_strdup(*static_str);
 		if (!line)
-			return NULL;
+			return (NULL);
 		free(*static_str);
 		*static_str = NULL;
 	}
-	return line;
+	return (line);
 }
 /**
  * get_next_line - the function to get next line from a file
@@ -86,28 +89,31 @@ char	*ft_extract_line(char **static_str) {
  *
  * return: on success- the line - on failure NULL
  */
+
 char	*ft_get_next_line(int fd)
 {
 	static char	*static_str;
 	char		buffer[BUFFER_SIZE];
 	ssize_t		bytes_read;
 
-	while (!static_str || !ft_strchr(static_str, '\n')) {
+	while (!static_str || !ft_strchr(static_str, '\n'))
+	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read < 0) {
+		if (bytes_read < 0)
+		{
 			free(static_str);
-			return NULL;
+			return (NULL);
 		}
 		if (bytes_read == 0)
-			break;
+			break ;
 		buffer[bytes_read] = '\0';
 		static_str = ft_strjoin(static_str, buffer);
 		if (!static_str)
-			return NULL;
+			return (NULL);
 	}
 	if (static_str && *static_str)
-		return ft_extract_line(&static_str);
+		return (ft_extract_line(&static_str));
 	free(static_str);
 	static_str = NULL;
-	return NULL;
+	return (NULL);
 }
