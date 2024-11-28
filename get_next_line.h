@@ -13,18 +13,20 @@
 #ifndef GET_NEXT_LINE
 # define GET_NEXT_LINE
 
-typedef struct s_list {
-	char *data;
-	struct s_list *next;
-} t_list;
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stddef.h>
 
 char	*get_next_line(int fd);
-void	add_back(t_list **list, t_list *node);
+char	*ft_strjoin(char *s1, char *s2);
+char	*extract_line(char **static_str);
+size_t	ft_strlen(char *str);
+char	*ft_strcat(char *dest, const char *src);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(char *s);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
 
 #endif
