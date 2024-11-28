@@ -20,7 +20,8 @@
  *
  * return: the joined strings
  */
-char	*ft_strjoin(char *s1, char *s2)
+
+/*char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*concat;
 	int		s1_size;
@@ -39,6 +40,21 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	concat = strcat(s1, s2);
 	return (concat);
+}*/
+char *strjoin(char *s1, char *s2) {
+    size_t len1 = s1 ? strlen(s1) : 0;
+    size_t len2 = strlen(s2);
+    char *result = malloc(len1 + len2 + 1);
+    if (!result)
+        return NULL;
+    if (s1) {
+        strcpy(result, s1);
+        free(s1); // Free the old static string
+    } else {
+        result[0] = '\0';
+    }
+    strcat(result, s2);
+    return result;
 }
 
 /**
