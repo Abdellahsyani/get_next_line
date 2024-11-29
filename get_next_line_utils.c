@@ -39,20 +39,23 @@ size_t	ft_strlen(char *str)
  *
  * return: the concat of these two strings
  */
-char	*ft_strcat(char *dest, const char *src)
+
+char	*ft_strcat(char *dest, char *src)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (!dest[i])
+	while (dest[i] != '\0')
 	{
 		i++;
 	}
-	i = 0;
-	while (!src[i])
+	j = 0;
+	while (src[j] != '\0')
 	{
-		dest[i] = src[i];
+		dest[i] = src[j];
 		i++;
+		j++;
 	}
 	dest[i] = '\0';
 	return (dest);

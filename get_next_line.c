@@ -20,7 +20,6 @@
  *
  * return: the joined strings
  */
-
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*concat;
@@ -69,8 +68,6 @@ char	*ft_extract_line(char **static_str)
 		if (!temp)
 		{
 			free(line);
-			free(*static_str);
-			*static_str = NULL;
 			return (NULL);
 		}
 		free(*static_str);
@@ -104,8 +101,6 @@ char	*ft_get_next_line(int fd)
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
-			free(static_str);
-			static_str = NULL;
 			return (NULL);
 		}
 		if (bytes_read == 0)

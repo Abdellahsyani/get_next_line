@@ -24,7 +24,7 @@ char	*ft_get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_extract_line(char **static_str);
 size_t	ft_strlen(char *str);
-char	*ft_strcat(char *dest, const char *src);
+char	*ft_strcat(char *dest, char *src);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(char *s);
 char	*ft_strncpy(char *dest, const char *src, size_t n);
