@@ -6,12 +6,15 @@
 /*   By: asyani <asyani@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 10:42:11 by asyani            #+#    #+#             */
-/*   Updated: 2024/11/26 17:03:38 by asyani           ###   ########.fr       */
+/*   Updated: 2024/11/29 18:49:06 by asyani           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+#ifndef BUFFER_SIZE
 #define BUFFER_SIZE 10
+#endif
 
 /**
  * ft_strjoin - helper function to join two strings
@@ -59,7 +62,7 @@ char	*ft_extract_line(char **static_str)
 	if (newline_pos)
 	{
 		line_len = newline_pos - *static_str + 1;
-		line = malloc(line_len + 1);
+		line = (char *) malloc((line_len + 1) * sizeof(char));
 		if (!line)
 			return (NULL);
 		ft_strncpy(line, *static_str, line_len);
@@ -93,7 +96,7 @@ char	*ft_extract_line(char **static_str)
 char	*ft_get_next_line(int fd)
 {
 	static char	*static_str;
-	char		buffer[BUFFER_SIZE];
+	char		buffer[BUFFER_SIZE + 1];
 	ssize_t		bytes_read;
 
 	while (!static_str || !ft_strchr(static_str, '\n'))
