@@ -12,9 +12,9 @@
 
 #include "get_next_line.h"
 
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 10
-#endif
+# ifndef BUFFER_SIZE
+# define BUFFER_SIZE 10
+# endif
 
 /**
  * ft_strjoin - helper function to join two strings
@@ -103,9 +103,7 @@ char	*ft_get_next_line(int fd)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
-		{
 			return (NULL);
-		}
 		if (bytes_read == 0)
 			break ;
 		buffer[bytes_read] = '\0';
