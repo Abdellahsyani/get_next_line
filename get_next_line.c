@@ -35,7 +35,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (ft_strdup(s1));
 	s1_size = ft_strlen(s1);
 	s2_size = ft_strlen(s2);
-	concat = malloc(sizeof(char) * (s1_size + s2_size) + 1);
+	concat = malloc(sizeof(char) * (s1_size + s2_size + 1));
 	if (!concat)
 		return (NULL);
 	concat = strcat(s1, s2);
@@ -69,6 +69,8 @@ char	*ft_extract_line(char **static_str)
 		if (!temp)
 		{
 			free(line);
+			free(*static_str);
+			*static_str = NULL;
 			return (NULL);
 		}
 		free(*static_str);
@@ -103,6 +105,7 @@ char	*ft_get_next_line(int fd)
 		if (bytes_read < 0)
 		{
 			free(static_str);
+			static_str = NULL;
 			return (NULL);
 		}
 		if (bytes_read == 0)
