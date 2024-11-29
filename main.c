@@ -9,8 +9,7 @@ int main()
 	if (fd == -1)
 		return -1;
 
-	line = ft_get_next_line(fd);
-	while (line)
+	while ((line = ft_get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
