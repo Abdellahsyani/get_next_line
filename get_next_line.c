@@ -83,6 +83,7 @@ char	*ft_extract_line(char **static_str)
 	}
 	return (line);
 }
+
 /**
  * get_next_line - the function to get next line from a file
  * @fd: the file that we want to extract
@@ -93,36 +94,30 @@ char	*ft_extract_line(char **static_str)
 char	*ft_get_next_line(int fd)
 {
 	static char	*static_str;
-	char		buffer[BUFFER_SIZE];
+	char		*buffer;
 	ssize_t		bytes_read;
 	char		*line;
 
+	buffer = malloc(sizeof(char) * (size_t)BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
 	while (!static_str || !ft_strchr(static_str, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read < 0)
-		{
-			free(static_str);
-			static_str = NULL;
-			return (NULL);
-		}
-		if (bytes_read == 0)
+		if (bytes_read <= 0)
 			break ;
 		buffer[bytes_read] = '\0';
 		static_str = ft_strjoin(static_str, buffer);
 		if (!static_str)
-			return (NULL);
+			break ;
 	}
 	if (static_str && *static_str)
 	{
 		line = ft_extract_line(&static_str);
-		if (!line)
-		{
-			free(static_str);
-			static_str = NULL;
-		}
-		return (line);
+		if (line)
+			return (line);
 	}
+	free(buffer);
 	free(static_str);
 	static_str = NULL;
 	return (NULL);
