@@ -40,25 +40,24 @@ size_t	ft_strlen(char *str)
  * return: the concat of these two strings
  */
 
-char	*ft_strcat(char *dest, char *src)
+void	strjoin_helper(char *concat, char *s1, char *s2)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (dest[i] != '\0')
+	j = 0;
+	while (s1[i])
 	{
+		concat[i] = s1[i];
 		i++;
 	}
-	j = 0;
-	while (src[j] != '\0')
+	while (s2[j])
 	{
-		dest[i] = src[j];
-		i++;
+		concat[i + j] = s2[j];
 		j++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	concat[i + j] = '\0';
 }
 
 /**

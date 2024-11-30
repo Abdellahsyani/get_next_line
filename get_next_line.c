@@ -12,10 +12,6 @@
 
 #include "get_next_line.h"
 
-# ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10
-# endif
-
 /**
  * ft_strjoin - helper function to join two strings
  * @s1: the string that will has joined
@@ -40,7 +36,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	concat = malloc(sizeof(char) * (s1_size + s2_size + 1));
 	if (!concat)
 		return (NULL);
-	concat = strcat(s1, s2);
+	strjoin_helper(concat, s1, s2);
+	free(s1);
 	return (concat);
 }
 
@@ -61,7 +58,7 @@ char	*ft_extract_line(char **static_str)
 	newline_pos = ft_strchr(*static_str, '\n');
 	if (newline_pos)
 	{
-		line_len = newline_pos - *static_str + 1;
+		line_len = (newline_pos - *static_str) + 1;
 		line = (char *) malloc((line_len + 1) * sizeof(char));
 		if (!line)
 			return (NULL);
@@ -96,14 +93,19 @@ char	*ft_extract_line(char **static_str)
 char	*ft_get_next_line(int fd)
 {
 	static char	*static_str;
-	char		buffer[BUFFER_SIZE + 1];
+	char		buffer[BUFFER_SIZE];
 	ssize_t		bytes_read;
+	char		*line;
 
 	while (!static_str || !ft_strchr(static_str, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
+		{
+			free(static_str);
+			static_str = NULL;
 			return (NULL);
+		}
 		if (bytes_read == 0)
 			break ;
 		buffer[bytes_read] = '\0';
@@ -112,7 +114,15 @@ char	*ft_get_next_line(int fd)
 			return (NULL);
 	}
 	if (static_str && *static_str)
-		return (ft_extract_line(&static_str));
+	{
+		line = ft_extract_line(&static_str);
+		if (!line)
+		{
+			free(static_str);
+			static_str = NULL;
+		}
+		return (line);
+	}
 	free(static_str);
 	static_str = NULL;
 	return (NULL);
