@@ -111,13 +111,13 @@ char	*ft_get_next_line(int fd)
 		if (!static_str)
 			break ;
 	}
+	free(buffer);
 	if (static_str && *static_str)
 	{
 		line = ft_extract_line(&static_str);
 		if (line)
 			return (line);
 	}
-	free(buffer);
 	free(static_str);
 	static_str = NULL;
 	return (NULL);
