@@ -91,13 +91,15 @@ char	*ft_extract_line(char **static_str)
  * return: on success- the line - on failure NULL
  */
 
-char	*ft_get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	static char	*static_str;
 	char		*buffer;
 	ssize_t		bytes_read;
 	char		*line;
 
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	buffer = malloc(sizeof(char) * (size_t)BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
