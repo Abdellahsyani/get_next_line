@@ -36,7 +36,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	concat = malloc(sizeof(char) * (s1_size + s2_size + 1));
 	if (!concat)
 		return (NULL);
-	strjoin_helper(concat, s1, s2);
+	ft_strcat(concat, s1, s2);
 	free(s1);
 	return (concat);
 }
