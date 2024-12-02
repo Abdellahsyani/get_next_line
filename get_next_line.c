@@ -55,12 +55,13 @@ char	*ft_extract_line(char **static_str)
 	char	*temp;
 
 	temp = NULL;
+	line = NULL;
 	if (**static_str)
 	{
 		newline_pos = ft_strchr(*static_str, '\n');
 		if (!newline_pos)
 			newline_pos = ft_strchr(*static_str, '\0');
-		line = (char *) malloc((newline_pos - *static_str) * sizeof(char));
+		line = (char *) malloc(((newline_pos - *static_str) + 1) * sizeof(char));
 		ft_strncpy(line, *static_str, (newline_pos - *static_str));
 		temp = ft_strdup(newline_pos);
 	}
