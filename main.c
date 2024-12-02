@@ -1,10 +1,13 @@
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int main()
 {
     char *line;
-    int fd1 = 6; 
-
+    int fd1 = open("file1", O_RDONLY); 
+    printf("------\n");
+    line = get_next_line(2);
+    printf("%s\n", line);
+    printf("-----\n");
     while ((line = get_next_line(fd1)) != NULL) {
         printf("From file1: %s", line);
         free(line);

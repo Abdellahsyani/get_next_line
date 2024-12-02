@@ -62,7 +62,7 @@ char	*extract_line(char **static_str)
 		newline_pos = ft_strchr(*static_str, '\n');
 		if (!newline_pos)
 			newline_pos = ft_strchr(*static_str, '\0');
-		line = (char *) malloc((newline_pos - *static_str + 1) * sizeof(char));
+		line = malloc(((newline_pos - *static_str) + 1) * sizeof(char));
 		ft_strncpy(line, *static_str, (newline_pos - *static_str));
 		temp = ft_strdup(newline_pos);
 	}
@@ -85,10 +85,10 @@ char	*get_next_line(int fd)
 	ssize_t		bytes_read;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = malloc(sizeof(char) * (size_t)BUFFER_SIZE + 1);
-	while (buffer && !ft_strchr(*static_str, '\n'))
+	buffer = malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
+	while (buffer && !ft_strchr(static_str[fd], '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
