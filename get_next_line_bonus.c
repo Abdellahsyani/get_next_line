@@ -88,7 +88,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = malloc(sizeof(char) * (size_t)BUFFER_SIZE + 1);
-	while (buffer && !ft_strchr(static_str, '\n'))
+	while (buffer && !ft_strchr(*static_str, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		buffer[bytes_read] = '\0';
