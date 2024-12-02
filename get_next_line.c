@@ -48,7 +48,7 @@ char	*ft_strjoin(char *s1, char *s2)
  * return: the extract line
  */
 
-char	*ft_extract_line(char **static_str)
+char	*extract_line(char **static_str)
 {
 	char	*newline_pos;
 	char	*line;
@@ -61,7 +61,7 @@ char	*ft_extract_line(char **static_str)
 		newline_pos = ft_strchr(*static_str, '\n');
 		if (!newline_pos)
 			newline_pos = ft_strchr(*static_str, '\0');
-		line = (char *) malloc(((newline_pos - *static_str) + 1) * sizeof(char));
+		line = (char *) malloc((newline_pos - *static_str + 1) * sizeof(char));
 		ft_strncpy(line, *static_str, (newline_pos - *static_str));
 		temp = ft_strdup(newline_pos);
 	}
@@ -97,7 +97,7 @@ char	*get_next_line(int fd)
 		if (!static_str)
 			break ;
 	}
-	line = ft_extract_line(&static_str);
+	line = extract_line(&static_str);
 	free(buffer);
 	return (line);
 }
