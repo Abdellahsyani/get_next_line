@@ -53,34 +53,19 @@ char	*ft_extract_line(char **static_str)
 	char	*newline_pos;
 	char	*line;
 	char	*temp;
-	size_t	line_len;
 
-	newline_pos = ft_strchr(*static_str, '\n');
-	if (newline_pos)
+	temp = NULL;
+	if (**static_str)
 	{
-		line_len = (newline_pos - *static_str) + 1;
-		line = (char *) malloc((line_len + 1) * sizeof(char));
-		if (!line)
-			return (NULL);
-		ft_strncpy(line, *static_str, line_len);
-		line[line_len] = '\0';
-		temp = ft_strdup(newline_pos + 1);
-		if (!temp)
-		{
-			free(line);
-			return (NULL);
-		}
-		free(*static_str);
-		*static_str = temp;
+		newline_pos = ft_strchr(*static_str, '\n');
+		if (!newline_pos)
+			newline_pos = ft_strchr(*static_str, '\0');
+		line = (char *) malloc((newline_pos - *static_str) * sizeof(char));
+		ft_strncpy(line, *static_str, (newline_pos - *static_str));
+		temp = ft_strdup(newline_pos);
 	}
-	else
-	{
-		line = ft_strdup(*static_str);
-		if (!line)
-			return (NULL);
-		free(*static_str);
-		*static_str = NULL;
-	}
+	free(*static_str);
+	*static_str = temp;
 	return (line);
 }
 
@@ -101,26 +86,17 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = malloc(sizeof(char) * (size_t)BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	while (!static_str || !ft_strchr(static_str, '\n'))
+	while (buffer && !ft_strchr(static_str, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read <= 0)
-			break ;
 		buffer[bytes_read] = '\0';
+		if (bytes_read == -1 || (bytes_read == 0 && !buffer[bytes_read]))
+			break ;
 		static_str = ft_strjoin(static_str, buffer);
 		if (!static_str)
 			break ;
 	}
+	line = ft_extract_line(&static_str);
 	free(buffer);
-	if (static_str && *static_str)
-	{
-		line = ft_extract_line(&static_str);
-		if (line)
-			return (line);
-	}
-	free(static_str);
-	static_str = NULL;
-	return (NULL);
+	return (line);
 }
