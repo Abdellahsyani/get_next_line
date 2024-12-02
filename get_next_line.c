@@ -56,7 +56,7 @@ char	*extract_line(char **static_str)
 
 	temp = NULL;
 	line = NULL;
-	if (**static_str)
+	if (*static_str && **static_str)
 	{
 		newline_pos = ft_strchr(*static_str, '\n');
 		if (!newline_pos)
@@ -90,8 +90,10 @@ char	*get_next_line(int fd)
 	while (buffer && !ft_strchr(static_str, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
+			break;
 		buffer[bytes_read] = '\0';
-		if (bytes_read == -1 || (bytes_read == 0 && !buffer[bytes_read]))
+		if (bytes_read == 0 && !buffer[bytes_read])
 			break ;
 		static_str = ft_strjoin(static_str, buffer);
 		if (!static_str)
