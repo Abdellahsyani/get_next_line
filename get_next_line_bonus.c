@@ -85,6 +85,7 @@ char	*get_next_line(int fd)
 	ssize_t		bytes_read;
 	char		*line;
 
+	line = NULL;
 	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
