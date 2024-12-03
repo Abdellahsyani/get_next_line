@@ -60,8 +60,8 @@ char	*extract_line(char **static_str)
 	if (*static_str && **static_str)
 	{
 		newline_pos = ft_strchr(*static_str, '\n');
-		if (!newline_pos)
-			newline_pos = ft_strchr(*static_str, '\0');
+		//if (!newline_pos)
+			//newline_pos = ft_strchr(*static_str, '\0');
 		line = malloc(((newline_pos - *static_str) + 1) * sizeof(char));
 		ft_strncpy(line, *static_str, (newline_pos - *static_str));
 		temp = ft_strdup(newline_pos);
