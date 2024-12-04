@@ -91,12 +91,7 @@ char	*get_next_line(int fd)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-		{
-			free(static_str);
-			static_str = NULL;
-			free(buffer);
-			return (NULL);
-		}
+			return (free(static_str), static_str = NULL, free(buffer), NULL);
 		buffer[bytes_read] = '\0';
 		if (bytes_read == 0 && !buffer[bytes_read])
 			break ;
@@ -105,6 +100,5 @@ char	*get_next_line(int fd)
 			break ;
 	}
 	line = extract_line(&static_str);
-	free(buffer);
-	return (line);
+	return (free(buffer), line);
 }

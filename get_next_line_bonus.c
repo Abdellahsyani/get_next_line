@@ -85,7 +85,6 @@ char	*get_next_line(int fd)
 	ssize_t		bytes_read;
 	char		*line;
 
-	line = NULL;
 	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
@@ -93,12 +92,8 @@ char	*get_next_line(int fd)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-		{
-			free(static_str[fd]);
-			static_str[fd] = NULL;
-			free(buffer);
-			return (NULL);
-		}
+			return (free(static_str[fd]), static_str[fd] = NULL,
+				free(buffer), NULL);
 		buffer[bytes_read] = '\0';
 		if (bytes_read == 0 && !buffer[bytes_read])
 			break ;
@@ -107,6 +102,5 @@ char	*get_next_line(int fd)
 			break ;
 	}
 	line = extract_line(&static_str[fd]);
-	free(buffer);
-	return (line);
+	return (free(buffer), line);
 }
