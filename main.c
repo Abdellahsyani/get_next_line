@@ -2,14 +2,14 @@
 
 int main()
 {
-	//char *line;
+	char *line;
 	int fd = open("file1", O_RDONLY); 
 	printf("------\n");
 	printf("-----\n");
-	/*while ((line = get_next_line(fd)) != NULL) {
+	while ((line = get_next_line(fd)) != NULL) {
 		printf("From file1: %s", line);
 		free(line);
-	}*/
+	}
 	//close(fd1);
 	if (BUFFER_SIZE > 100)
 	{
