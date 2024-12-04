@@ -55,8 +55,8 @@ char	*extract_line(char **static_str)
 	char	*line;
 	char	*temp;
 
-	temp = NULL;
 	line = NULL;
+	temp = NULL;
 	if (*static_str && **static_str)
 	{
 		newline_pos = ft_strchr(*static_str, '\n');
