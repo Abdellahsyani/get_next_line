@@ -7,13 +7,12 @@ int main()
     int fd1 = open("file2", O_RDONLY);
 
     if (fd == -1 || fd1 == -1) {
-        perror("Error opening files");
         return 1;
     }
 
     printf("-----\n");
     while (1) {
-        line1 = get_next_line(fd);
+        line1 = get_next_line(0);
         if (line1 == NULL) break;
         
         printf("From file1: %s", line1);
@@ -35,8 +34,6 @@ int main()
         printf("From file2: %s", line2);
         free(line2);
     }
-
-    close(fd);
-    close(fd1);
+    close(0);
     return 0;
 }
